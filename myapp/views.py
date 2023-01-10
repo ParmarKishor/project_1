@@ -248,35 +248,8 @@ def change_password(request):
 		else:
 			
 			return render (request,'seller-change-password.html')		
-def forgot_password(request):
-	if request.method=="POST":
-		try:
-			otp=random.randint(1000,9999)
-			user=User.objects.get(email=request.POST['email'])
-			subject = 'OTP For Forgot Password'
-			message = 'OTP For Forgot Password is' +str(otp)
-			email_from = settings.EMAIL_HOST_USER
-			recipient_list = [user.email, ]
-			send_mail( subject, message, email_from, recipient_list )
-		except Exception as e:
-			print (e)
-			msg="email is not registered...."
-			return render(request,'forgot-password.html',{'msg':msg})	
-	else:
-		return render(request,'forgot-password.html')
-def verify_otp(request):
-	
-	email=request.POST['email']
-	otp=request.POST['otp']
-	uotp=request.POST['uotp']
 
-	if otp==uotp:
-		return render (request,'new-password.html',{'email':email})
-	else:
-		msg="Invalid OTP..."
-		return render (request,'otp.html',{'otp':otp,'email':email,'msg':msg})
-def new_password(request):
-	return render(request,'new-password.html')
+
 def seller_index(request):
 	return render (request,'seller_index.html')
 def seller_add_product(request):
